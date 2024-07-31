@@ -77,25 +77,68 @@ const connection = mysql.createConnection({
     });
 
     //Edit route
-    app.get("/user/:id" , (req , res)=>{
-
-       
+    app.get("/user/:id/edit" , (req ,res)=>{
         try
         {
-            let {id} = req.params;
-            let q= `SELECT * FROM user WHERE id = '${id}'`;
-            connection.query(q, (err , res)=>{
-                    if(err) throw err;
-                    console.log(res);
-                    res.send("Welcome");
-                    // res.render("edit.ejs" , {id});
+           let {id} = req.params;
+           let q= `SELECT * FROM user WHERE id ='${id}'`;
+           connection.query(q, (err , result)=>{
+                   if(err) throw err;
+                //    console.log(result);
+                   let user_data = result[0];
+                   res.render("edit.ejs" , {user_data});
+           });
+        }
+        catch(err)
+        {
+           res.send("Some Error Occure in dataBase");
+        }
+               
+          
+       });
+       
+    //Update (Modification) in database
+    
+    const MethodOverride = require("method-override");      // install using (npm i method-override) so that we can convert our post request to patch request.
+    app.use(MethodOverride('_method'));
+    app.use(express.urlencoded({extended: true}));      //to encode our data coming from the form
+    
+    app.patch("/user/:id" , (req , res)=>{       
+        
+        let {id} = req.params;
+        let {username:new_username , password:form_pass} = req.body;
+        let q = `SELECT * FROM user WHERE id ='${id}'`;
+        try
+        {           
+            connection.query(q , (err,result)=>{
+                if(err) throw err;
+                let user = result[0];
+                {
+                    if(form_pass != user.password)
+                    {
+                            res.send("Wrong Password");
+                    }
+                    else
+                    {
+                        let q = `UPDATE user SET username ='${new_username}' WHERE id='${id}'` ;
+                        connection.query(q , (err , result)=>{
+                            if(err) throw err;
+                            // console.log(result);
+                            res.redirect("/user");
+                            
+                        });
+                    }
+                }       
             });
         }
         catch(err)
         {
-            res.send("Some Error Occure in dataBase");
+            res.send(err);
         }       
     });
+
+    
+
 
     app.listen(port ,()=>{
 
