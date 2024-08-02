@@ -14,10 +14,17 @@
     tr,td ,th, table{
         border: 2px solid black;
     }
+
+     a{
+
+        text-decoration: none;
+        color: black;
+    }
 </style>
 
 <body>
-    <h2>Welcome to user List</h2>
+    <h2>Welcome to user List :-</h2>
+    <h2><button><a  class="addUser" href="/user/add">Add New User</a></button></h2>
     <table style="border: 1px;">
         <tr>
             <th>sr.</th>
@@ -25,6 +32,7 @@
             <th>Username</th>
             <th>E-mail</th>
             <th>Modify</th>
+            <th>Delete Username</th>
             
         </tr>
         <% let i=1 %>
@@ -35,6 +43,7 @@
                 <td><%= user.username %></td>
                 <td><%= user.email %></td>
                 <td><button><a href="/user/<%= user.id %>/edit">Edit Username</a></button></td>
+                <td><button><a href="/user/<%=user.id%>/delete">Delete User</a></button></td>
                 <% i++; %>
 
             </tr>

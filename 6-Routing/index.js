@@ -16,6 +16,9 @@ const port = 8080;
 
 //==========================================================================>
     const { faker, tr } = require('@faker-js/faker');
+    // const getUserId =()=>{
+    //                             return faker.string.uuid()       
+    //                      };
 //==========================================================================>
 
 
@@ -137,8 +140,90 @@ const connection = mysql.createConnection({
         }       
     });
 
-    
+    //Delete the user
+    app.get("/user/:id/delete" , (req , res)=>{
 
+        let {id}= req.params;
+        res.render("delete_user.ejs",{id});
+    });
+
+    //Modifation of deleting in DB
+    app.delete("/user/:id" , (req , res)=>{
+
+        let {id} = req.params;
+        let {email:form_email , password:form_pass} = req.body;
+        console.log(id);
+        console.log(form_email);
+        console.log(form_pass);
+        let q = `SELECT * FROM user WHERE id ='${id}'`;
+        try
+        {
+            connection.query(q,(err , result)=>{
+
+                if(err) throw err;
+                let user = result[0];
+                let user_email = user.email;
+                let user_pass = user.password;
+
+                if((form_pass != user_pass) || (form_email != user_email))
+                {
+                    res.send("Email or Password are incorrect ! Please try again");
+                }
+                else
+                {    let q = `DELETE FROM user WHERE id='${id}'`;
+                    connection.query(q , (err , result)=>{
+                        if(err) throw err;
+                        console.log(result);
+                        res.redirect("/user");
+                    });
+                }
+            });
+        }
+        catch(err)
+        {
+            res.send(err);
+        }
+    });
+
+    //Add new user
+
+    const {v4 : uuidv4} = require('uuid');
+
+
+    app.get("/user/add" , (req , res)=>{
+
+        let id = uuidv4();
+        console.log(id)
+
+        res.render("add.ejs",{id});
+        // res.send("Welcome to we are going to add a new user");
+
+    });
+
+    //Add to the DB
+    app.post("/user/:id",(req , res)=>{
+
+        let {id} = req.params;
+        let {username , email , password} = req.body;
+        console.log(id);
+        console.log(username);
+        console.log(email);
+        console.log(password);
+        let q = `INSERT INTO user (id , username , email , password) VALUES ("${id}", "${username}" ,"${email}","${password}")`;
+        try
+        {
+            connection.query(q , (err , result)=>{
+
+                if(err) throw err;
+                res.redirect("/user");
+            });
+        }
+        catch(err)
+        {
+            res.send(err);
+        }
+     });
+   
 
     app.listen(port ,()=>{
 
