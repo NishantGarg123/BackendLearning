@@ -195,6 +195,4 @@ const User = mongoose.model("User",userschema);
 //======================================================================================>>
 //(schema validation) Similar to the sql constraints we are going to define some constraints of our schema.
 
-    //we move in the books.js
-    
 //======================================================================================>>
