@@ -5,5 +5,5 @@ This contain all the code's that i have learn during Backend exploration.
 Nishant Garg.
 
 
-# Some sites to stude
+# Some sites to study.
 https://mongoosejs.com/docs/index.html
