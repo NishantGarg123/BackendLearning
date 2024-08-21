@@ -1,0 +1,15 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+    <h2>Create new Listing</h2>
+    <form method="post" action="/listings">
+        
+        <input type="text" name="listing[title]" placeholder="enter title" id=""><br><br>
+        <input type="text" name="listing[description]" placeholder="enter description" id=""><br><br>
+        <input type="text" name="listing[image]" placeholder="enter image url" id=""><br><br>
+        <input type="number" name="listing[price]" placeholder="enter price" id=""><br><br>
+        <input type="text" name="listing[location]" placeholder="enter location" id=""><br><br>
+        <input type="text" name="listing[country]" placeholder="enter country" id=""><br><br>
+        <button>add</button>
+    </form>
+    
+</body>
