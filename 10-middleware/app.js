@@ -82,7 +82,7 @@ app.use("/api",(req , res )=>{
 
 
 // ===============================================================================>>
-multiple middle ware
+// multiple middle ware
 const checkToken = (req , res , next )=>{
 
     let {token} = req.query;
