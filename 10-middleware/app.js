@@ -55,20 +55,20 @@ const port = 8080;
 // ===============================================================================>>
 
 // ===============================================================================>>
-//api token
-// app.use("/api",(req , res ,next)=>{
+// api token
+app.use("/api",(req , res ,next)=>{
 
-//     let {token} = req.query;
-//     if(token === "giveaccess")
-//     {
-//         next();
-//     }
-//     res.send("Access denied");
-// });
+    let {token} = req.query;
+    if(token === "giveaccess")
+    {
+        next();
+    }
+    res.send("Access denied");
+});
 
-// app.use("/api",(req , res )=>{
-//     res.send("data");
-// });
+app.use("/api",(req , res )=>{
+    res.send("data");
+});
 
 // ===============================================================================>>
 
@@ -82,20 +82,20 @@ const port = 8080;
 
 
 // ===============================================================================>>
-//multiple middle ware
-// const checkToken = (req , res , next )=>{
+multiple middle ware
+const checkToken = (req , res , next )=>{
 
-//     let {token} = req.query;
-//     if(token === "giveaccess")
-//     {
-//         next();
-//     }
-//     res.send("Access denied");
-// };
+    let {token} = req.query;
+    if(token === "giveaccess")
+    {
+        next();
+    }
+    res.send("Access denied");
+};
 
-// app.use("/api", checkToken ,(req , res )=>{
-//     res.send("data");
-// });
+app.use("/api", checkToken ,(req , res )=>{
+    res.send("data");
+});
 
 // ===============================================================================>>
 
