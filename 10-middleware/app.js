@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 8080;
 
+
 // ===============================================================================>>
 //middleware (our 1st middle ware) and use of next
 // app.use((req , res , next)=>{
@@ -55,34 +56,27 @@ const port = 8080;
 // ===============================================================================>>
 
 // ===============================================================================>>
-// api token
-app.use("/api",(req , res ,next)=>{
+//api token
+// app.use("/api",(req , res ,next)=>{
 
-    let {token} = req.query;
-    if(token === "giveaccess")
-    {
-        next();
-    }
-    res.send("Access denied");
-});
+//     let {token} = req.query;
+//     if(token === "giveaccess")
+//     {
+//         next();
+//     }
+//     res.send("Access denied");
+// });
 
-app.use("/api",(req , res )=>{
-    res.send("data");
-});
-
-// ===============================================================================>>
-
-
-// ===============================================================================>>
-//error handling
-
-
+// app.use("/api",(req , res )=>{
+//     res.send("data");
+// });
 
 // ===============================================================================>>
 
 
+
 // ===============================================================================>>
-// multiple middle ware
+//multiple middle ware
 const checkToken = (req , res , next )=>{
 
     let {token} = req.query;
@@ -90,7 +84,8 @@ const checkToken = (req , res , next )=>{
     {
         next();
     }
-    res.send("Access denied");
+    throw new Error("Access Denied");
+    
 };
 
 app.use("/api", checkToken ,(req , res )=>{
@@ -109,9 +104,18 @@ app.get("/err",(req , res)=>{
 app.use((err , req , res , next)=>{
 console.log("----------ERROR---------");
 //next();                                         //-> if we are simply call to the next then it found to the non errored handling path and execute
-next(err);                                   //-> if we pass err in parameter then it will call to the default express handler
-
+// next(err);                                   //-> if we pass err in parameter then it will call to the default express handler
+res.send(err);
 });
+
+
+app.use((err , req , res , next)=>{
+    console.log("----------ERROR 2 middle ware ---------");
+    //next();                                         //-> if we are simply call to the next then it found to the non errored handling path and execute
+    // next(err);                                   //-> if we pass err in parameter then it will call to the default express handler
+    res.send(err);
+    });
+
 
 app.use((req , res)=>{
     res.status(404).send("page not found");
