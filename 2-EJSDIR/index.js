@@ -34,6 +34,7 @@
 // ====================================================================>>
         //This  code used so that we can add our js and css code into the render template
        // app.use(express.static("public"));      //As the ejs file defaultly read from the view folder similarly Static css and js file read from the public folder.
+        // is used in a Node.js + Express project to serve static files (like images, CSS, JavaScript, etc.) from the public folder.
         app.use(express.static(path.join(__dirname,"public")));     //This code modified by above so that we can run server from the another directory.
 // ====================================================================>>
 
