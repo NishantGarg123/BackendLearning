@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome user</title>
+</head>
+<style>
+    th , td{
+
+        padding: 15px;
+    }
+    tr,td ,th, table{
+        border: 2px solid black;
+    }
+
+     a{
+
+        text-decoration: none;
+        color: black;
+    }
+</style>
+
+<body>
+    <h2>Welcome to user List :-</h2>
+    <h2><button><a  class="addUser" href="/user/add">Add New User</a></button></h2>
+    <table style="border: 1px;">
+        <tr>
+            <th>sr.</th>
+            <th>Id</th>
+            <th>Username</th>
+            <th>E-mail</th>
+            <th>Modify</th>
+            <th>Delete Username</th>
+            
+        </tr>
+        <% let i=1 %>
+        <% for(user of result) {  %>
+            <tr >
+                <td><%= i %></td>
+                <td><%= user.id %></td>
+                <td><%= user.username %></td>
+                <td><%= user.email %></td>
+                <td><button><a href="/user/<%= user.id %>/edit">Edit Username</a></button></td>
+                <td><button><a href="/user/<%=user.id%>/delete">Delete User</a></button></td>
+                <% i++; %>
+
+            </tr>
+        <% } %>
+    </table>
+
+</body>
+
+</html>

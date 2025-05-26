@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All chats</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>welcome to all chats</h1>
+    <hr>
+    <h3><button><a href="/chats/new">Add new chat</a></button></h3>
+            <% for(chat of chats){ %>
+                <div class="chat">    
+                    <b><p> From: <%= chat.from %></p>   </b>
+                    <i><div>Received by:<%= chat.to %></div>   </i>
+                    <i><div class="msg">Message: <%= chat.msg %></div> </i>
+                    <hr>
+                    <button><a href="/chats/<%= chat.id %>/edit">edit your Message</a></button>
+                    <button><a href="/chats/<%= chat.id %>">Show your chat</a></button>
+                    <button><a href="/chats/<%= chat.id %>/delete">delete your chat</a></button>
+                    <hr>
+                    <p>Chat created at time :<%= (chat.created_at).toString().split(" ")[4] %></p>
+                    <p>Chat created at day :<%= (chat.created_at).toString().split(" ").slice(0,4).join("-") %></p>
+                </div>
+                <br><br>
+            <% } %>
+        
+        
+    </table>
+</body>
+</html>
